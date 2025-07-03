@@ -8,6 +8,8 @@ class PostIndex extends Component
 {
     public function render()
     {
-        return view('livewire.posts.post-index');
+        return view('livewire.posts.post-index', [
+            'posts' => auth()->user()->posts()->latest()->get(),
+        ]);
     }
 }
