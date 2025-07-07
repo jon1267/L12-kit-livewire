@@ -31,6 +31,13 @@
                 type="file"
         />
 
+        <div class="flex gap-4">
+            <img src="{{ asset('storage/'.$form->post->image) }}" class="w-18 h-18 rounded-2xl {{ $form->image ? 'opacity-30':'' }}" alt="Image" title="Old image">
+            @if ( $form->image )
+                <img src="{{ $form->image->temporaryUrl() }}" class="w-18 h-18 rounded-2xl" alt="Image" title="New image">
+            @endif
+        </div>
+
         <div class="flex items-center justify-end">
             <flux:button variant="primary" type="submit" class="w-full">Update</flux:button>
         </div>

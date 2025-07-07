@@ -31,6 +31,12 @@
                 type="file"
         />
 
+        <div>
+            @if ( $form->image )
+                <img src="{{ $form->image->temporaryUrl() }}" class="w-16 h-16 rounded-2xl" alt="Image">
+            @endif
+        </div>
+
         <div class="flex items-center justify-end">
             <flux:button variant="primary" type="submit" class="w-full">Create</flux:button>
         </div>
