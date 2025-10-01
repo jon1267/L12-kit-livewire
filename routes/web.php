@@ -29,6 +29,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/posts', \App\Livewire\Posts\PostIndex::class)->name('posts.index');
     Route::get('/posts/create', \App\Livewire\Posts\PostCreate::class)->name('posts.create');
     Route::get('/posts/{post}/edit', \App\Livewire\Posts\PostEdit::class)->name('posts.edit');
+
+    Route::get('/projects', \App\Livewire\Projects\Index::class)->name('projects.index');;
 });
 
 require __DIR__.'/auth.php';
