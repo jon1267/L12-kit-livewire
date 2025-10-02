@@ -54,7 +54,5 @@ class PostForm extends Form
 
         $this->post->update($data);
         $this->reset();
-
-        // time 42:30 
     }
 }

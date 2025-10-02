@@ -23,7 +23,6 @@ class PostEdit extends Component
         $this->form->update(); // Update method need create in PostForm
         session()->flash('success', 'Post updated successfully.');
         return redirect()->to('/posts');
-        // time 35:25
     }
 
     public function render()
