@@ -34,6 +34,11 @@
         <div class="form-group">
             <flux:input type="file" wire:model="project_logo" class="cursor-pointer" accept="image/*" label="Project Logo" />
         </div>
+        {{--<div>
+            @if ( $form->project_logo )
+                <img src="{{ $form->project_logo->temporaryUrl() }}" class="w-16 h-16 rounded-2xl" alt="Project Logo">
+            @endif
+        </div>--}}
 
         <div class="flex justify-end pt-4">
             <flux:spacer/>
