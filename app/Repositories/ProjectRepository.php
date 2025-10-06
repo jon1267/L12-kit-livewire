@@ -18,4 +18,9 @@ class ProjectRepository
     {
         return Project::create($projectRequest);
     }
+
+    public function getProjectQuery()
+    {
+        return Project::query();
+    }
 }

@@ -35,4 +35,73 @@
 
     </div>
 
+    <!-- Table for listing projects -->
+    <div class="overflow-x-auto border rounded-xl shadow-md">
+        <table class="min-w-full table-auto text-sm text-left">
+            <thead class="bg-gray-50 text-gray-700 uppercase text-xs font-semibold border-b">
+            <tr>
+                <th class="p-4">#</th>
+                <th class="p-4">Name</th>
+                <th class="p-4">Description</th>
+                <th class="p-4">Status</th>
+                <th class="p-4">Deadline</th>
+                <th class="p-4">Logo</th>
+                <th class="p-4">Actions</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            @forelse($projects as $project)
+                <tr class="hover:bg-gray-50 transition">
+                    <td class="p-4">{{ $loop->index + 1 }}</td>
+                    <td class="p-4">{{ $project->name }}</td>
+                    <td class="p-4">{{ $project->description }}</td>
+                    <td class="p-4 capitalize">
+                        @php
+                            $statusColors = match ($project->status) {
+                                'pending' => 'bg-yellow-300 text-yellow-800 border border-yellow-500',
+                                'in-progress' => 'bg-blue-300 text-blue-800 border border-blue-500',
+                                'completed' => 'bg-green-300 text-green-800 border border-green-500',
+                                'cancelled' => 'bg-red-300 text-red-800 border border-red-500',
+                            };
+                            $statusClass = $statusColors[$project->status] ?? 'bg-gray-100 text-gray-800';
+                        @endphp
+
+                        <span class="px-3 py-1 rounded shadow-sm {{ $statusColors }}">{{ $project->status }}</span>
+
+                    </td>
+                    <td class="p-4">{{ $project->deadline }}</td>
+                    <td class="p-4">
+                        @if($project->project_logo)
+                            <img src="{{ asset('storage/'.$project->project_logo) }}" alt="Project Logo" class="h-18 w-18 rounded-full border">
+                        @endif
+                    </td>
+
+                    <!-- Actions time 1:02:05 -->
+                    <td class="p-4">
+                        <flux:modal.trigger name="project-modal">
+                            <!-- View -->
+                            <flux:button variant="primary" color="sky" icon="eye" class="cursor-pointer"></flux:button>
+                            <!-- Edit -->
+                            <flux:button variant="primary" color="blue" icon="pencil" class="cursor-pointer mx-1"></flux:button>
+                        </flux:modal.trigger>
+
+                        <!-- Delete -->
+                        <flux:button variant="primary" color="red" icon="trash" class="cursor-pointer"></flux:button>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="7" class="p-6 text-center ">
+                        <flux:text class="flex items-center justify-center text-red-500">
+                            <flux:icon.exclamation-triangle class="mr-2" /> No projects found!
+                        </flux:text>
+                    </td>
+                </tr>
+            @endforelse
+
+            </tbody>
+        </table>
+    </div>
+
 </div>
