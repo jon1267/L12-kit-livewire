@@ -81,9 +81,16 @@
                     <td class="p-4">
                         <flux:modal.trigger name="project-modal">
                             <!-- View -->
-                            <flux:button variant="primary" color="sky" icon="eye" class="cursor-pointer"></flux:button>
+                            <flux:button
+                                    wire:click="$dispatch('open-project-modal', { mode: 'view', project: {{ $project }} })"
+                                    variant="primary" color="sky" icon="eye" class="cursor-pointer">
+                            </flux:button>
+
                             <!-- Edit -->
-                            <flux:button variant="primary" color="blue" icon="pencil" class="cursor-pointer mx-1"></flux:button>
+                            <flux:button
+                                    wire:click="$dispatch('open-project-modal', { mode: 'edit', project: {{ $project }} })"
+                                    variant="primary" color="blue" icon="pencil" class="cursor-pointer mx-1">
+                            </flux:button>
                         </flux:modal.trigger>
 
                         <!-- Delete -->

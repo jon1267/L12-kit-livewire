@@ -35,7 +35,6 @@ class ProjectService
 
     public function getAllProjects()
     {
-        // time 47:05
-        return $this->projectRepository->getProjectQuery();
+         return $this->projectRepository->getProjectQuery();
     }
 }
