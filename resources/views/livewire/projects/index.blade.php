@@ -8,7 +8,11 @@
     <!-- button Add Project -->
     <div class="text-end mb-4">
         <flux:modal.trigger name="project-modal">
-            <flux:button variant="primary" color="indigo" icon="plus-circle" class="cursor-pointer">Add Project</flux:button>
+            <flux:button
+                wire:click="$dispatch('open-project-modal', { mode: 'create' })"
+                variant="primary" color="indigo" icon="plus-circle" class="cursor-pointer">
+                Add Project
+            </flux:button>
         </flux:modal.trigger>
     </div>
 
@@ -61,7 +65,7 @@
                             $statusColors = match ($project->status) {
                                 'pending' => 'bg-yellow-300 text-yellow-800 border border-yellow-500',
                                 'in-progress' => 'bg-blue-300 text-blue-800 border border-blue-500',
-                                'completed' => 'bg-green-300 text-green-800 border border-green-500',
+                                'competed' => 'bg-green-300 text-green-800 border border-green-500',
                                 'cancelled' => 'bg-red-300 text-red-800 border border-red-500',
                             };
                             $statusClass = $statusColors[$project->status] ?? 'bg-gray-100 text-gray-800';
@@ -77,7 +81,6 @@
                         @endif
                     </td>
 
-                    <!-- Actions time 1:02:05 -->
                     <td class="p-4">
                         <flux:modal.trigger name="project-modal">
                             <!-- View -->
@@ -94,7 +97,11 @@
                         </flux:modal.trigger>
 
                         <!-- Delete -->
-                        <flux:button variant="primary" color="red" icon="trash" class="cursor-pointer"></flux:button>
+                        <flux:modal.trigger name="delete-project">
+                            <flux:button wire:click="$dispatch('delete-project', {id: {{ $project->id }} })"
+                                 class="cursor-pointer" variant="primary" color="red" icon="trash" >
+                            </flux:button>
+                        </flux:modal.trigger>
                     </td>
                 </tr>
             @empty
@@ -110,5 +117,32 @@
             </tbody>
         </table>
     </div>
+
+    <!-- Pagination -->
+    <div class="mt-4">
+        @if ( method_exists($projects, 'links') )
+            {{ $projects->links() }}
+        @endif
+    </div>
+
+    <!-- Delete Project Modal -->
+    <flux:modal name="delete-project" class="min-w-[25rem]">
+        <div class="space-y-6">
+            <div>
+                <flux:heading size="lg">Delete project?</flux:heading>
+                <flux:text class="mt-2">
+                    <p>You're about to delete this project.</p>
+                    <p>This action cannot be reversed.</p>
+                </flux:text>
+            </div>
+            <div class="flex gap-2">
+                <flux:spacer />
+                <flux:modal.close>
+                    <flux:button variant="ghost">Cancel</flux:button>
+                </flux:modal.close>
+                <flux:button wire:click="deleteProject" type="submit" variant="danger">Delete project</flux:button>
+            </div>
+        </div>
+    </flux:modal>
 
 </div>

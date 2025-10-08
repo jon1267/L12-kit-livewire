@@ -25,7 +25,7 @@
             <flux:select :disabled="$isView" wire:model="status" label="Status" placeholder="Choose status...">
                 <flux:select.option value="pending">Pending</flux:select.option>
                 <flux:select.option value="in-progress">In-Progress</flux:select.option>
-                <flux:select.option value="competed">Competed</flux:select.option>
+                <flux:select.option value="competed">Completed</flux:select.option>
                 <flux:select.option value="cancelled">Cancelled</flux:select.option>
             </flux:select>
         </div>
@@ -53,9 +53,10 @@
                 <flux:button variant="ghost" class="cursor-pointer">Cancel</flux:button>
             </flux:modal.close>
 
-            <!-- time 1:12:10 -->
             @if(!$isView)
-                <flux:button type="submit" variant="primary" color="indigo" class="cursor-pointer ms-2">Save Project</flux:button>
+                <flux:button type="submit" variant="primary" color="indigo" class="cursor-pointer ms-2">
+                    {{ $projectId ? 'Update ' : 'Save ' }} Project
+                </flux:button>
             @endif
         </div>
     </form>

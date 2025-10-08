@@ -37,7 +37,12 @@ class FormModal extends Component
         // Validate the form data
         $validatedProjectRequest = $this->validate();
 
-        $projectService->saveProject($validatedProjectRequest);
+        if ($this->projectId) {
+            $projectService->updateProject($this->projectId, $validatedProjectRequest);
+        } else {
+            $projectService->saveProject($validatedProjectRequest);
+        }
+
 
         $this->reset();
 
@@ -45,6 +50,8 @@ class FormModal extends Component
             'message' => 'Project created successfully!',
             'type' => 'success',
         ]);
+
+        $this->dispatch('refresh-projects-list');
 
         Flux::modal('project-modal')->close();
     }
@@ -58,6 +65,8 @@ class FormModal extends Component
 
         if ($mode === 'create') {
             $this->isView = false;
+            $this->projectId = null;
+            $this->existingImage = null;
             $this->reset();
         } else {
             $this->projectId = $project['id'];
