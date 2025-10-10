@@ -66,10 +66,12 @@ class ProjectService
             }
 
             $projectRequest['slug'] = Str::slug($projectRequest['name']);
-
             $project->update($projectRequest);
+
             return $project;
         }
+
+        return null;
     }
 
     public function deleteProject($projectId)
@@ -78,7 +80,8 @@ class ProjectService
 
         if ($project) {
 
-            # again this not working ...
+            # this if not working. Storage::exists() always return false (???)
+            # $project->project_logo correctly display image.
             //if ($project->project_logo && Storage::exists($project->project_logo)) {
             //    Storage::delete($project->project_logo);
             //}
@@ -89,5 +92,7 @@ class ProjectService
 
             return $project->delete();
         }
+
+        return false;
     }
 }
